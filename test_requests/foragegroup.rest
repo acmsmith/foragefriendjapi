@@ -1,0 +1,28 @@
+GET http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+
+###
+
+GET http://localhost:3000/foragegroup/643a6e38a207a27c91bf86d4/643a6e51a207a27c91bf86dd
+###
+
+POST http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+Content-Type: application/json
+
+{
+    "name": "TestGroup2"
+}
+
+###
+
+PATCH http://localhost:3000/foragegroup/643a6e38a207a27c91bf86d4/643a6e51a207a27c91bf86dd
+Content-Type: application/json
+
+{
+    "name": "TestGroupUpdated"
+}
+
+###
+
+DELETE http://localhost:3000/foragegroup/6439ad798f320fc11b386d13/6439b5acbce27ab9655a6064
+
+###

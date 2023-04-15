@@ -1,0 +1,44 @@
+GET http://localhost:3000/user
+
+###
+
+GET http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+
+###
+
+GET http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84
+
+###
+
+GET http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84/643a70bcb9907319f4eaaa9a
+
+###
+
+POST http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84
+Content-Type: application/json
+
+{
+    "name": "Daisy",
+    "isEdible": true,
+    "imageURI": "An Image",
+    "comment": "Test Comment"
+}
+
+###
+
+DELETE http://localhost:3000/foragebiota/643a5921cf12f02102ad9099/643a5bef10eed86621ac3c8d
+
+###
+
+DELETE http://localhost:3000/foragebiota/643a5921cf12f02102ad9099
+
+###
+PATCH http://localhost:3000/foragebiota/643a5921cf12f02102ad9099/643a5e0810eed86621ac3cb9
+Content-Type: application/json
+
+{
+    "isEdible": false,
+    "imageURI": "Updated Image",
+    "comment": "Updated Comment"
+
+}
