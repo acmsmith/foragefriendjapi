@@ -4,13 +4,13 @@ var Keycloak = require('keycloak-connect');
 let _keycloak;
 
 var keycloakConfig = {
-    clientId: 'foragefriendapi',
+    clientId: `${process.env.KEYCLOAK_CLIENT_ID}`,
     bearerOnly: true,
-    serverUrl: 'https://foragefriendauth.azurewebsites.net',
-    realm: 'foragefriend',
-    realmPublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh5wdPgHMbql+pIuPz4MldrK8hgTwMPBOVwVSKP0NxFIABf4Fzpm+7lEC05wCeG5+SZPtwazed+4nvkcJG+Q8PGIShzldrjZQlrrpyYFuZZ4D+zA4vXl4SUr9VXpS7twn/N0cAM0XstC5wjzdcsHx1CzdBK8HonRWc55Ap+fvVtlKDSdAXuormjWN+DSxh4HqBaHYgNIxyW68/auuFrTcy+3o5pFL667HCSD47ji/Ry8V5kReS+gAccmTTMXRlDireSZDStZ+4pqlbbilDUo1cxr/4tlILzsAl9tb55vcil1f0DnGyceBzPhx46GoTksCk0tuI3FrS/aSksnZCjjCCwIDAQAB',
+    serverUrl: `${process.env.KEYCLOAK_SERVER}`,
+    realm: `${process.env.KEYCLOAK_REALM}`,
+    realmPublicKey: `${process.env.KEYCLOAK_REALM_PUBLIC_KEY}`,
     credentials: {
-        secret: `${process.env.KEYCOAK_CLIENT_SECRET}`
+        secret: `${process.env.KEYCLOAK_CLIENT_SECRET}`
     }
 };
 
@@ -29,7 +29,7 @@ function initKeycloak(app) {
             store: memoryStore
           }));
         _keycloak = new Keycloak({ store: memoryStore }, keycloakConfig);
-        app.use(_keycloak.middleware({ logout: '/logout' }));
+        app.use(_keycloak.middleware());
         return _keycloak;
     }
 }

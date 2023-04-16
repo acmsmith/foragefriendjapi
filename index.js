@@ -23,7 +23,7 @@ const app = express();
 
 //initialise keycloak
 const keycloak = require('./config/keycloak-config.js').initKeycloak(app);
-//app.use(keycloak.middleware());
+app.use(keycloak.middleware());
 
 //Setup server to use JSON and Cors
 app.use(express.json());
