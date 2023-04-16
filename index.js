@@ -51,7 +51,7 @@ app.use("/auth", authRouter);
 
 //Default Root response
 app.get("/", (req, res) => {
-    res.redirect(`http://localhost:3000/version`);
+    res.redirect(`${process.env.ROOT_SERVER}/auth`);
 });
 
 //Version Route
