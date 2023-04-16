@@ -1,20 +1,24 @@
-GET http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+@hostlocal = http://localhost:3000
+@hostremote = https://foragefriendapi.azurewebsites.net
+@host={{hostremote}}
+
+GET {{host}}/foragegroup/643be3687c5beaf35d7809c4
 
 ###
 
-GET http://localhost:3000/foragegroup/643a6e38a207a27c91bf86d4/643a6e51a207a27c91bf86dd
+GET {{host}}/foragegroup/643be3687c5beaf35d7809c4/643be4077c5beaf35d7809cc
 ###
 
-POST http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+POST {{host}}/foragegroup/643be3687c5beaf35d7809c4
 Content-Type: application/json
 
 {
-    "name": "TestGroup2"
+    "name": "TestGroup1"
 }
 
 ###
 
-PATCH http://localhost:3000/foragegroup/643a6e38a207a27c91bf86d4/643a6e51a207a27c91bf86dd
+PATCH {{host}}/foragegroup/643a6e38a207a27c91bf86d4/643a6e51a207a27c91bf86dd
 Content-Type: application/json
 
 {
@@ -23,6 +27,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/foragegroup/6439ad798f320fc11b386d13/6439b5acbce27ab9655a6064
+DELETE {{host}}/foragegroup/6439ad798f320fc11b386d13/6439b5acbce27ab9655a6064
 
 ###

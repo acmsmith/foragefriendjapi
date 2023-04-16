@@ -1,20 +1,24 @@
-GET http://localhost:3000/user
+@hostlocal = http://localhost:3000
+@hostremote = https://foragefriendapi.azurewebsites.net
+@host={{hostremote}}
+
+GET {{host}}/user
 
 ###
 
-GET http://localhost:3000/foragegroup/643a701fb9907319f4eaaa80
+GET {{host}}/foragegroup/643a701fb9907319f4eaaa80
 
 ###
 
-GET http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84
+GET {{host}}/foragebiota/643be4077c5beaf35d7809cc
 
 ###
 
-GET http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84/643a70bcb9907319f4eaaa9a
+GET {{host}}/foragebiota/643a7035b9907319f4eaaa84/643a70bcb9907319f4eaaa9a
 
 ###
 
-POST http://localhost:3000/foragebiota/643a7035b9907319f4eaaa84
+POST {{host}}/foragebiota/643be4077c5beaf35d7809cc
 Content-Type: application/json
 
 {
@@ -26,14 +30,14 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/foragebiota/643a5921cf12f02102ad9099/643a5bef10eed86621ac3c8d
+DELETE {{host}}/foragebiota/643a5921cf12f02102ad9099/643a5bef10eed86621ac3c8d
 
 ###
 
-DELETE http://localhost:3000/foragebiota/643a5921cf12f02102ad9099
+DELETE {{host}}/foragebiota/643a5921cf12f02102ad9099
 
 ###
-PATCH http://localhost:3000/foragebiota/643a5921cf12f02102ad9099/643a5e0810eed86621ac3cb9
+PATCH {{host}}/foragebiota/643a5921cf12f02102ad9099/643a5e0810eed86621ac3cb9
 Content-Type: application/json
 
 {

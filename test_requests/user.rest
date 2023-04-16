@@ -1,12 +1,16 @@
-GET http://localhost:3000/user
+@hostlocal = http://localhost:3000
+@hostremote = https://foragefriendapi.azurewebsites.net
+@host={{hostremote}}
+
+GET {{host}}/user
 
 ###
 
-GET http://localhost:3000/user/643a6e1fa207a27c91bf86cc
+GET {{host}}/user/643a6e1fa207a27c91bf86cc
 
 ###
 
-POST http://localhost:3000/user
+POST {{host}}/user
 Content-Type: application/json
 
 {
@@ -18,7 +22,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3000/user/643a6e1fa207a27c91bf86cc
+PATCH {{host}}/user/643a6e1fa207a27c91bf86cc
 Content-Type: application/json
 
 {
@@ -29,6 +33,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/user/643a6e1fa207a27c91bf86cc
+DELETE {{host}}/user/643a6e1fa207a27c91bf86cc
 
 ###

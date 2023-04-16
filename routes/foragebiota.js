@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const foragebiotaModel = require("../models/foragebiotaModel");
-const foragegroupModel = require("../models/foragegroupModel");
-const user = require("./user");
 const group = require("./foragegroup");
+const keycloak = require('../config/keycloak-config.js').getKeycloak();
 
 //Get all biota
-router.get("/:group", group.getForagegroup, async (req, res) => {
+router.get("/:group", keycloak.protect('user'), group.getForagegroup, async (req, res) => {
     try{
         const entries = await foragebiotaModel.find({group: req.params.group}).exec();
         res.json(entries);
@@ -16,12 +15,12 @@ router.get("/:group", group.getForagegroup, async (req, res) => {
 });
 
 //Get one biota
-router.get("/:group/:biota", group.getForagegroup, getForagebiota, (req, res) => {
+router.get("/:group/:biota", keycloak.protect('user'), group.getForagegroup, getForagebiota, (req, res) => {
     res.json(res.foragebiota);
 });
 
 //Create one biota
-router.post("/:group", group.getForagegroup, async (req, res) => {
+router.post("/:group", keycloak.protect('user'), group.getForagegroup, async (req, res) => {
     const incomming = new foragebiotaModel({
         name: req.body.name,
         group: res.foragegroup,
@@ -38,7 +37,7 @@ router.post("/:group", group.getForagegroup, async (req, res) => {
 });
 
 //Update one Biota
-router.patch("/:group/:biota", group.getForagegroup, getForagebiota, async (req, res) => {
+router.patch("/:group/:biota", keycloak.protect('user'), group.getForagegroup, getForagebiota, async (req, res) => {
     if(req.body.name){
         res.foragebiota.name = req.body.name;
     }
@@ -63,7 +62,7 @@ router.patch("/:group/:biota", group.getForagegroup, getForagebiota, async (req,
 });
 
 //Delete one Biota
-router.delete("/:group/:biota", group.getForagegroup, getForagebiota, async (req, res) => {
+router.delete("/:group/:biota", keycloak.protect('user'), group.getForagegroup, getForagebiota, async (req, res) => {
     try {
         await res.foragebiota.deleteOne();
         res.json({message: "Successfully deleted entry"});
@@ -72,8 +71,8 @@ router.delete("/:group/:biota", group.getForagegroup, getForagebiota, async (req
     }
 });
 
-//Delete all Biota in garoup
-router.delete("/:group", group.getForagegroup, async (req, res) => {
+//Delete all Biota in group
+router.delete("/:group", keycloak.protect('user'), group.getForagegroup, async (req, res) => {
     try {
         await foragebiotaModel.deleteMany({group: req.params.group});
         res.json({message: "Successfully deleted all ForageBiota"});
