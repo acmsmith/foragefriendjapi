@@ -1,0 +1,38 @@
+var express = require('express');
+var router = express.Router();
+const keycloak = require('../config/keycloak-config.js').getKeycloak();
+const axios = require("axios");
+const redirectURI = `${process.env.ROOT_SERVER}${process.env.REDIRECT_URI}`;
+router.get("/", (req, res) => {
+    res.redirect(`${process.env.KEYCLOAK_AUTH_ENDPOINT}?response_type=code&client_id=${process.env.KEYCLOAK_CLIENT_ID}&redirect_uri=${redirectURI}`);
+});
+
+//curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code&code=3bffbda8-1453-4e2c-8edb-bffd096c40b4.04c1e2e4-e6a2-460f-841a-83ef532b01d8.e3e6990e-7c61-48a3-93e0-ee1bbc3724a4&redirect_uri=http://localhost:4200/authorization-code/callback&client_id=serendipity-pwa&client_secret=Password12" http://localhost:10001/auth/realms/development/protocol/openid-connect/token
+router.get("/token-test", async (req, res) => {
+    try{
+      const requestToken = req.query.code;
+      const params = new URLSearchParams();
+      params.append('grant_type', 'authorization_code');
+      params.append('code', requestToken);
+      params.append("client_id", process.env.KEYCLOAK_CLIENT_ID)
+      params.append("client_secret", process.env.KEYCLOAK_CLIENT_SECRET);
+      params.append("redirect_uri", redirectURI);
+      axios({
+        method: "post",
+        url: process.env.KEYCLOAK_TOKEN_ENDPOINT,
+        headers: {
+          accept: "application/x-www-form-urlencoded"
+        },
+        data: params
+      }).then((response) => {
+        //const accessToken = response.data.access_token;
+        res.redirect(redirectURI);
+      });
+    }catch(error){
+      console.log(error);
+      res.status(500).json({message: error.message});
+    }
+  
+  });
+
+module.exports = router;

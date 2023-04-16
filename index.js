@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require('express');
 const cors = require("cors");
 const port = process.env.PORT;
+const path = require('path');
 
 //Setup database connnection.
 const mongoose = require("mongoose");
@@ -14,12 +15,23 @@ db.once("open", () => console.log("Connected to Database."));
 //Define access toi get information from package.json file.
 var pjson = require('./package.json');
 
+//Define utils
+const utils = require ('./utils');
+
 //Create app instance
 const app = express();
+
+//initialise keycloak
+const keycloak = require('./config/keycloak-config.js').initKeycloak(app);
+//app.use(keycloak.middleware());
 
 //Setup server to use JSON and Cors
 app.use(express.json());
 app.use(cors());
+
+//Create rout for keycloak testing
+const keycloakRout = require("./routes/keycloaktest");
+app.use("/keycloaktest", keycloakRout);
 
 //Create rout for user
 const userRouter = require("./routes/user");
@@ -33,10 +45,20 @@ app.use("/foragegroup", foragegroupRouter.router);
 const foragebiotaRouter = require("./routes/foragebiota");
 app.use("/foragebiota", foragebiotaRouter.router);
 
+//Create rout for auth
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
+
 //Default Root response
 app.get("/", (req, res) => {
-    res.send("ForageFriend API, version: "+pjson.version);
+    res.redirect(`http://localhost:3000/version`);
 });
+
+//Version Route
+app.get("/version", (req, res) => {
+  res.send("ForageFriend API, version: "+pjson.version);
+});
+
 
 //Begin listening
 app.listen(port, () => {
