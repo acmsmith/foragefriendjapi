@@ -15,9 +15,6 @@ db.once("open", () => console.log("Connected to Database."));
 //Define access toi get information from package.json file.
 var pjson = require('./package.json');
 
-//Define utils
-const utils = require ('./utils');
-
 //Create app instance
 const app = express();
 
@@ -58,7 +55,6 @@ app.get("/", (req, res) => {
 app.get("/version", (req, res) => {
   res.send("ForageFriend API, version: "+pjson.version);
 });
-
 
 //Begin listening
 app.listen(port, () => {
