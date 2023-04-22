@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
 });
 
 //Version Route
-app.get("/version", (req, res) => {
+app.get("/version", keycloak.protect(['user','admin']), (req, res) => {
   res.send("ForageFriend API, version: "+pjson.version);
 });
 
