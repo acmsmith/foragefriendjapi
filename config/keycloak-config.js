@@ -21,7 +21,6 @@ function initKeycloak(app) {
     } 
     else {
         console.log("Initializing Keycloak...");
-        console.log(keycloakConfig);
         var memoryStore = new session.MemoryStore();
         app.use(session({
             secret: 'some secret',

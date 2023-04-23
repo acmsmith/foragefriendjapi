@@ -48,11 +48,11 @@ app.use("/auth", authRouter);
 
 //Default Root response
 app.get("/", (req, res) => {
-    res.redirect(`${process.env.ROOT_SERVER}/auth`);
+  res.redirect(`${process.env.ROOT_SERVER}/auth`);
 });
 
 //Version Route
-app.get("/version", keycloak.protect(['user','admin']), (req, res) => {
+app.get("/version", (req, res) => {
   res.send("ForageFriend API, version: "+pjson.version);
 });
 
